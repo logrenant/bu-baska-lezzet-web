@@ -1,0 +1,261 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fbfaf8;
+  /* stone-50 equivalent */
+  --foreground: #1c1917;
+  /* stone-900 equivalent */
+
+  /* Brand colors */
+  --olive-dark: #2F3E22;
+  --olive-primary: #5A7045;
+  --olive-light: #8B9B78;
+  --gold-accent: #D4AF37;
+  /* Page canvas + footer sage, previously inlined as hex across components */
+  --olive-cream: #fafaf5;
+  --olive-sage: #92a381;
+  /* Warm off-white for type sitting on the dark olive surfaces */
+  --olive-parchment: #F3EFE4;
+  /* Secondary type on those same dark surfaces — sage that still clears AA */
+  --olive-mist: #C3CDB4;
+  /* The de facto eyebrow-label color, previously inlined as #7c886a across components */
+  --olive-eyebrow: #7c886a;
+
+  /* Motion */
+  --ease-editorial: cubic-bezier(0.76, 0, 0.24, 1);
+  --duration-menu: 600ms;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-olive-dark: var(--olive-dark);
+  --color-olive-primary: var(--olive-primary);
+  --color-olive-light: var(--olive-light);
+  --color-olive-cream: var(--olive-cream);
+  --color-olive-sage: var(--olive-sage);
+  --color-olive-parchment: var(--olive-parchment);
+  --color-olive-mist: var(--olive-mist);
+  --color-olive-eyebrow: var(--olive-eyebrow);
+  --color-gold-accent: var(--gold-accent);
+
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-playfair);
+
+  /* Editorial type steps used by the overlay navigation */
+  --text-display: clamp(2.25rem, min(7.5vw, 8.5vh), 5rem);
+  --text-eyebrow: 0.6875rem;
+
+  --tracking-eyebrow: 0.3em;
+  --tracking-wordmark: -0.01em;
+
+  --ease-editorial: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #1c1917;
+    --foreground: #fbfaf8;
+  }
+}
+
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* Custom utility for text balancing to prevent widows */
+.text-balance {
+  text-wrap: balance;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+ * Olive burger — the menu trigger's icon.
+ *
+ * Three rungs; the short middle one carries a single olive. Hovering
+ * drifts them right on a stagger, opening folds the outer two into a
+ * cross and slides the olive away.
+ *
+ * Kept in CSS rather than inline styles so the hover and open states can
+ * share one transition without fighting GSAP's inline transforms.
+ * ═══════════════════════════════════════════════════════════════════ */
+@layer components {
+
+  .olive-burger__rung {
+    transform-box: view-box;
+    transition:
+      transform var(--duration-menu) var(--ease-editorial),
+      opacity 250ms ease;
+  }
+
+  .olive-burger__rung--top {
+    transform-origin: 16px 10px;
+  }
+
+  .olive-burger__rung--mid {
+    transform-origin: 16px 16px;
+  }
+
+  .olive-burger__rung--bottom {
+    transform-origin: 16px 22px;
+  }
+
+  /* Closed: hovering walks the rungs right in the menu's own stagger. */
+  .olive-burger[data-open="false"]:hover .olive-burger__rung--top,
+  .olive-burger[data-open="false"]:focus-visible .olive-burger__rung--top {
+    transform: translateX(2px);
+  }
+
+  .olive-burger[data-open="false"]:hover .olive-burger__rung--mid,
+  .olive-burger[data-open="false"]:focus-visible .olive-burger__rung--mid {
+    transform: translateX(3.5px);
+    transition-delay: 60ms;
+  }
+
+  .olive-burger[data-open="false"]:hover .olive-burger__rung--bottom,
+  .olive-burger[data-open="false"]:focus-visible .olive-burger__rung--bottom {
+    transform: translateX(2px);
+    transition-delay: 120ms;
+  }
+
+  /* Open: the outer rungs cross, the olive rolls off. */
+  .olive-burger[data-open="true"] .olive-burger__rung--top {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  .olive-burger[data-open="true"] .olive-burger__rung--bottom {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  .olive-burger[data-open="true"] .olive-burger__rung--mid {
+    opacity: 0;
+    transform: translateX(10px) scale(0.6);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+ * WhatsApp badge — the award-badge lockup pinned to the lower-left.
+ *
+ * The caption rides a circular <textPath>; only the ring rotates, so the
+ * glyph in the middle stays upright. Kept in CSS (not GSAP) so the badge
+ * can stay a server component with zero JS.
+ * ═══════════════════════════════════════════════════════════════════ */
+@layer components {
+
+  .wa-badge__ring {
+    transform-origin: center;
+    animation: wa-badge-spin 24s linear infinite;
+  }
+
+  .wa-badge:hover .wa-badge__ring,
+  .wa-badge:focus-visible .wa-badge__ring {
+    animation-duration: 9s;
+  }
+}
+
+@keyframes wa-badge-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+ * Page transitions — React's <ViewTransition> (see PageTransition.tsx).
+ *
+ * One editorial cross-dissolve for every route: the outgoing page leaves
+ * quickly so it stops competing for attention, the incoming page fades up
+ * a few pixels on the brand easing. Deliberately not directional — the
+ * site has no forward/back hierarchy worth encoding.
+ *
+ * `.page` is the view-transition-class React puts on each page's <main>.
+ * ═══════════════════════════════════════════════════════════════════ */
+
+/* The transition overlay swallows clicks while it runs; let them through. */
+::view-transition {
+  pointer-events: none;
+}
+
+::view-transition-old(.page) {
+  animation: 200ms ease-in both page-dissolve reverse;
+}
+
+::view-transition-new(.page) {
+  animation:
+    340ms var(--ease-editorial) 160ms both page-dissolve,
+    620ms var(--ease-editorial) both page-rise;
+}
+
+/* The navbar is the reader's fixed anchor — it must not travel with the
+   page it sits above. Dropping the old snapshot avoids a double header. */
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 100;
+}
+
+::view-transition-old(site-header) {
+  display: none;
+}
+
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+/* Same reasoning for the two persistent overlays. */
+::view-transition-group(site-frame),
+::view-transition-group(wa-badge) {
+  animation: none;
+}
+
+::view-transition-old(site-frame),
+::view-transition-old(wa-badge) {
+  display: none;
+}
+
+::view-transition-new(site-frame),
+::view-transition-new(wa-badge) {
+  animation: none;
+}
+
+@keyframes page-dissolve {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes page-rise {
+  from {
+    translate: 0 14px;
+  }
+
+  to {
+    translate: 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  .olive-burger__rung {
+    transition-duration: 1ms;
+  }
+
+  .wa-badge__ring {
+    animation: none;
+  }
+
+  /* Content still swaps — it just stops moving. */
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 1ms !important;
+    animation-delay: 0s !important;
+  }
+}
