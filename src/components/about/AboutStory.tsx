@@ -27,8 +27,8 @@ const chapters: Chapter[] = [
     label: 'Kökler',
     title: 'Toprağı miras değil, emanet sayarız',
     body: [
-      'Bu paragrafa bahçelerin hikâyesini yazın: ağaçların yaşı, toprağın karakteri, ailenin bu topraklarla ne zaman tanıştığı.',
-      'İkinci paragrafta neden sıklaştırılmış modern dikim yerine geniş aralıklı asırlık ağaçlarda ısrar ettiğinizi anlatabilirsiniz.',
+      'Hikâyemiz, rüzgârın zeytin yapraklarıyla dans ettiği Ayvalık yamaçlarında, kökleri yüzyıllar öncesine uzanan asırlık ağaçlarımızla başlar. Ailemizin bu topraklarla kurduğu bağ, üç kuşak önce dikilen ilk fidanla filizlendi ve toprağa duyduğumuz sonsuz saygıyla bugüne ulaştı.',
+      'Biz, daha fazla ürün elde etmek uğruna doğanın dengesini bozan sıklaştırılmış modern dikim sistemlerini reddediyoruz. Geniş aralıklarla kök salmış, güneşten ve Ege rüzgârından nasibini tam alan asırlık ağaçlarımızın bilgeliğine inanıyor, onların sunduğu az ama öz meyveyi bir lütuf olarak görüyoruz.',
     ],
   },
   {
@@ -36,8 +36,8 @@ const chapters: Chapter[] = [
     label: 'Yöntem',
     title: 'Acele etmeyen bir üretim',
     body: [
-      'Bu paragrafta hasat ve sıkım yaklaşımınızı anlatın: erken hasat, elle toplama, havalandırmalı kasalar, soğuk sıkım eşiği.',
-      'Rakamlarla desteklemek isterseniz — hasattan sıkıma geçen saat, malaksasyon sıcaklığı, polifenol değeri — ikinci paragraf buna uygun.',
+      'Mükemmellik aceleye gelmez. Hasadımız, zeytinler henüz yeşilken, en yüksek polifenol ve antioksidan değerlerine sahip oldukları Ekim ayının o serin sabahlarında başlar. Her bir zeytin tanesi, dalına ve meyvesine zarar vermemek için özenle elle toplanır ve zedelenmeleri önlemek adına özel havalandırmalı kasalarda taşınır.',
+      'Bahçeden koparılan zeytinler, oksidasyona uğramadan sadece birkaç saat içinde sıkıma alınır. Sıkım işlemimiz kesinlikle 27°C\'yi aşmayan, gerçek soğuk sıkım prensibiyle gerçekleşir. Bu sayede zeytinin o kendine has meyvemsi aroması, genzi hafifçe yakan taze çimen kokusu ve tüm şifası zerre kaybolmadan zeytinyağına geçer.',
     ],
   },
   {
@@ -45,8 +45,8 @@ const chapters: Chapter[] = [
     label: 'Söz',
     title: 'Şişeye giren her damlanın arkasında dururuz',
     body: [
-      'Bu paragrafta markanın sözünü yazın: kalite taahhüdü, izlenebilirlik, kime ve neden ürettiğiniz.',
-      'Kapanışta okuru tadım ya da siparişe davet eden bir cümle iyi durur.',
+      'Şişeye giren her damla, toprağa, emeğe ve size verdiğimiz bir sözdür. Ürettiğimiz her partiyi kendi mutfağımızda, kendi çocuklarımıza yedirmeyeceğimiz standartta ise asla şişelemiyoruz. Şişenin üzerindeki her detay, bahçeden sofranıza kadar süren şeffaf ve izlenebilir bir hikâyenin kanıtıdır.',
+      'Bu başka lezzeti sadece anlatmak yetmez, onu duyularınızla yaşamanız gerekir. Sizi, asırlık ağaçlarımızın ruhunu taşıyan bu eşsiz zeytinyağını tatmaya ve doğanın kusursuz simyasına ortak olmaya davet ediyoruz.',
     ],
   },
 ];
@@ -66,8 +66,7 @@ export default function AboutStory() {
             <span className="block italic text-[#7c886a]">onu yeniden dinlemeye geldik.</span>
           </h1>
           <p className="font-sans text-lg md:text-xl leading-relaxed text-stone-700 mt-10 max-w-2xl">
-            Bu giriş paragrafını siz yazacaksınız. Markanın tek cümlelik özünü ve
-            okuru sayfanın geri kalanına hazırlayan kısa bir çerçeveyi buraya koyun.
+            Zeytinyağı bizim için sadece bir ürün değil; asırlık ağaçların fısıltısı, toprağın bereketi ve kuşaktan kuşağa aktarılan bir tutkunun şişelenmiş halidir. "Bu Başka Lezzet" diyerek çıktığımız yolda, doğanın kusursuz simyasını en saf haliyle sofralarınıza taşıyoruz.
           </p>
         </div>
       </section>

@@ -35,6 +35,7 @@ const menuItems: MenuItem[] = [
   { title: 'HAKKIMIZDA', href: '/hakkimizda', caption: 'Bir destana dönüşen hikâye' },
   { title: 'BLOG', href: '/blog', caption: 'Toprağın ve sıkımın hikâyeleri' },
   { title: 'TARİFLER', href: '/tarifler', caption: 'Yağın kendi konuştuğu sofralar' },
+  { title: 'S.S.S.', href: '/sss', caption: 'Merak edilen detaylar' },
   { title: 'İLETİŞİM', href: '/iletisim', caption: 'Bir şişe, bir sohbetle başlar' },
 ];
 
