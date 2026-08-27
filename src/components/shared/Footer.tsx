@@ -23,6 +23,7 @@ const explore = [
   { label: 'Hakkımızda', href: '/hakkimizda' },
   { label: 'Blog', href: '/blog' },
   { label: 'Tarifler', href: '/tarifler' },
+  { label: 'S.S.S.', href: '/sss' },
   { label: 'İletişim', href: '/iletisim' },
 ];
 
